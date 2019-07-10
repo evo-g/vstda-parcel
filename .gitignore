@@ -15,7 +15,6 @@
 .project
 .strong-pm
 .vscode
-dist
 logs
 npm-debug.log
 reports
