@@ -3,20 +3,29 @@ import React, { Component } from 'react';
 
 class TodoForm extends Component {
   render() {
+    const { 
+      handleInputText,
+      text, 
+      priority, 
+      handleInputPriority, 
+      addTodoHandler, 
+      handleSort, 
+      handleSortReverse
+    } = this.props;
     return (
       <div className='col-lg-4 col-md-6 col-sm-12'>
         <div className='card'>
           <h5 className="card-header bg-muted mt-0">Add New Todo</h5>
-          <button className='btn btn-block btn-primary w-100 p-2 mt-0' onClick={this.props.handleSort}>Sort</button>
-          <button className='btn btn-block btn-info w-100 p-2 mt-0' onClick={this.props.handleSortReverse}>Reverse</button>
+          <button className='btn btn-block btn-primary w-100 p-2 mt-0' onClick={handleSort}>Sort</button>
+          <button className='btn btn-block btn-info w-100 p-2 mt-0' onClick={handleSortReverse}>Reverse</button>
           <div className='mt-4 ml-2'>
             <strong><label>I want to...</label></strong>
           </div>
           <div className='mx-1'>
             <textarea
               className='create-todo-text'
-              onChange={this.props.handleInputText}
-              value={this.props.text}
+              onChange={handleInputText}
+              value={text}
               name='text'
             />
           </div>
@@ -28,8 +37,8 @@ class TodoForm extends Component {
               <select
                 className='col-lg-8 create-todo-priority w-100'
                 data-defaultvalue='0'
-                onChange={this.props.handleInputPriority}
-                value={this.props.priority}
+                onChange={handleInputPriority}
+                value={priority}
                 name='priority'
               >
                 <option value='0'>Select a Priority</option>
@@ -41,7 +50,7 @@ class TodoForm extends Component {
             <div className='card-footer mt-4 bg-muted'>
               <button
                 className='btn btn-block btn-success w-100 create-todo'
-                onClick={this.props.addTodoHandler}
+                onClick={addTodoHandler}
                 name='create-todo'
               >Add</button>
             </div>

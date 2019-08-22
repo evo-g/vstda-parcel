@@ -11,7 +11,9 @@ class App extends Component {
       todoList: [],
       text: '',
       priority: 0,
+      id: 0
     };
+
     this.handleInputText = this.handleInputText.bind(this);
     this.handleInputPriority = this.handleInputPriority.bind(this);
     this.addTodoHandler = this.addTodoHandler.bind(this);
@@ -19,6 +21,7 @@ class App extends Component {
     this.updateTodoList = this.updateTodoList.bind(this);
     this.handleSort = this.handleSort.bind(this);
     this.handleSortReverse = this.handleSortReverse.bind(this);
+    this.handleId = this.handleId.bind(this);
   }
 
   handleInputText(e) {
@@ -29,25 +32,34 @@ class App extends Component {
     this.setState({ priority: e.target.value });
   }
 
+  handleId(id, increaseBy) {
+    let newId = id +=increaseBy;
+    this.setState({
+      id: newId
+    });
+  }
+
   addTodoHandler() {
     if (this.state.text == '' || this.state.priority == 0) {
       alert('please add text or choose priority')
       return false;
     };
+    const { text, priority, id, todoList } = this.state;
+    this.handleId(id, 1);
     let todo = {
-      text: this.state.text,
-      priority: this.state.priority,
+      id,
+      text,
+      priority,
       isEditing: false,
       isCompleted: false,
-      todoList: this.state.todoList
     };
-    let todoListCopy = [...this.state.todoList];
+    let todoListCopy = [...todoList];
     todoListCopy.push(todo);
     this.setState({
       todoList: todoListCopy,
       text: '',
       isEditing: false,
-    }, () => console.log(this.state.todoList));
+    });
   }
 
   updateTodoList(todo, index) {
@@ -74,14 +86,13 @@ class App extends Component {
     console.log('sort', priority);
     let newArr = [...this.state.todoList];
     newArr.sort((a, b) => a.priority - b.priority);
-    this.setState({ todoList: newArr }, () => console.log('newArr', newArr));
+    this.setState({ todoList: newArr });
   }
 
   handleSortReverse(priority) {
-    console.log('sort', priority);
     let newArr = [...this.state.todoList];
     newArr.sort((a, b) => b.priority - a.priority);
-    this.setState({ todoList: newArr }, () => console.log('newArr', newArr));
+    this.setState({ todoList: newArr });
   }
 
   render() {
@@ -100,6 +111,7 @@ class App extends Component {
             handleSort={this.handleSort}
             handleSortReverse={this.handleSortReverse}
             text={this.state.text}
+            id={this.state.id}
           />
           {/* Todo */}
           <ViewTodo

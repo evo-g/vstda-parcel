@@ -45,3 +45,15 @@ div.pull-right a {
   max-height: 500px;
   overflow: auto;
 }
+
+@media (max-width: 37.5rem) {
+  .view-todo {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 47.875rem) {
+  .view-todo {
+    margin-top: 2rem;
+  }
+}

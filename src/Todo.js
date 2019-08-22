@@ -7,6 +7,7 @@ class Todo extends Component {
     this.state = {
       text: this.props.text,
       priority: this.props.priority,
+      id: this.props.id,
       isEditing: false,
       isCompleted: false
     }
@@ -32,8 +33,8 @@ class Todo extends Component {
   }
 
   handleDelete() {
-    const index = this.props.index;
-    this.props.handleDeleteButton(index);
+    const { handleDeleteButton,id } = this.props;
+    handleDeleteButton(id);
   }
 
   onEditClick() {
@@ -48,13 +49,15 @@ class Todo extends Component {
 
 
   handleSave() {
-    let newObj = { 
+    const { id, updateTodoList, index } = this.props; 
+    let todo = {
+      id,
       text: this.state.text,
       priority: this.state.priority,
       isEditing: false,
       isCompleted: false
     };
-    this.props.updateTodoList(newObj, this.props.index);
+    updateTodoList(todo, index);
     this.onEditClick();
     if (this.state.isCompleted === true) {
     return this.handleCheckBox();
@@ -70,7 +73,7 @@ class Todo extends Component {
   render() {
     const { text, priority } = this.props;
     return (
-      <div>
+      <React.Fragment>
         {
           (!this.state.isEditing) ?
             <li className={`alert col-12 m-0 alert-${this.highPriority()}`} id={!this.state.isCompleted ? '' : 'strike-through'}>{text}
@@ -103,7 +106,7 @@ class Todo extends Component {
               </div>
             </li>
         }
-      </div>
+      </React.Fragment>
     );
   }
 

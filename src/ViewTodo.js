@@ -19,8 +19,9 @@ const ViewTodo = (props) => {
                 {
                   props.list.map((listItem, index) =>
                     <Todo
-                      key={index}
+                      key={listItem.id}
                       index={index}
+                      id={listItem.id}
                       text={listItem.text}
                       priority={listItem.priority}
                       updateTodoList={props.updateTodoList}
