@@ -33,7 +33,7 @@ class Todo extends Component {
   }
 
   handleDelete() {
-    const { handleDeleteButton,id } = this.props;
+    const { handleDeleteButton, id } = this.props;
     handleDeleteButton(id);
   }
 
@@ -45,11 +45,11 @@ class Todo extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-  } 
+  }
 
 
   handleSave() {
-    const { id, updateTodoList, index } = this.props; 
+    const { id, updateTodoList, index } = this.props;
     let todo = {
       id,
       text: this.state.text,
@@ -60,7 +60,7 @@ class Todo extends Component {
     updateTodoList(todo, index);
     this.onEditClick();
     if (this.state.isCompleted === true) {
-    return this.handleCheckBox();
+      return this.handleCheckBox();
     }
   }
 
@@ -72,14 +72,19 @@ class Todo extends Component {
 
   render() {
     const { text, priority } = this.props;
+    const { isCompleted, isEditing } = this.state;
     return (
       <React.Fragment>
         {
-          (!this.state.isEditing) ?
-            <li className={`alert col-12 m-0 alert-${this.highPriority()}`} id={!this.state.isCompleted ? '' : 'strike-through'}>{text}
+          (!isEditing) ?
+            <li className={`alert col-12 m-0 alert-${this.highPriority()}`} id={!isCompleted ? '' : 'strike-through'}>{text}
               <input className='checkBox pull-left' type='checkBox' onClick={this.handleCheckBox}></input>
               <a href='#' className='pull-right ml-2'><span className='glyphicon glyphicon-trash delete-todo' onClick={this.handleDelete}></span></a>
-              <a href='#' className='pull-right'><span className='glyphicon glyphicon-edit edit-todo' onClick={this.onEditClick}></span></a>
+              {(!isCompleted) ?
+                <a href='#' className='pull-right'><span className='glyphicon glyphicon-edit edit-todo' onClick={this.onEditClick}></span></a>
+                :
+                <div></div>
+              }
             </li>
             :
             <li className={`alert col-12 m-0 alert-${this.highPriority()}`}>
@@ -92,11 +97,11 @@ class Todo extends Component {
                   <strong>Priority</strong>
                 </label>
                 <br />
-                <select 
-                  className='update-todo-priority w-50' 
+                <select
+                  className='update-todo-priority w-50'
                   onChange={this.handleChange}
-                  defaultValue={priority} 
-                  name='priority' 
+                  defaultValue={priority}
+                  name='priority'
                 >
                   <option value='1'>High Prioirty</option>
                   <option value='2'>Medium Priority</option>

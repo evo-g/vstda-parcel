@@ -90,6 +90,7 @@ class App extends Component {
   }
 
   handleSortReverse(priority) {
+    console.log('sort', priority);
     let newArr = [...this.state.todoList];
     newArr.sort((a, b) => b.priority - a.priority);
     this.setState({ todoList: newArr });

@@ -30,8 +30,8 @@ lib-cov
 
 # production
 /build
-/dist
- 
+
+
 # misc
 .DS_Store
 .env.local
@@ -40,3 +40,5 @@ lib-cov
 .env.production.local
 
 npm-debug.log*
+
+/dist
